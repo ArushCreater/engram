@@ -18,7 +18,7 @@ const features = [
 
 export default function LearnersFeaturesSection() {
   return (
-    <section className="py-16 md:py-24 bg-background text-foreground">
+    <section className="min-h-screen flex flex-col justify-center items-center py-20 md:py-24 bg-background text-foreground">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -29,22 +29,22 @@ export default function LearnersFeaturesSection() {
                 style={{ animationDelay: `${0.2 + index * 0.2}s` }}
               >
                 <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-primary">{feature.title}</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-primary">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                  <p className="text-muted-foreground leading-relaxed text-base">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
           <div className="flex justify-center items-center opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
             <Image
-              src="https://placehold.co/500x500.png" // Placeholder for the circular network graphic
+              src="https://placehold.co/500x500.png" 
               alt="Knowledge Network Graphic"
               width={500}
               height={500}
               className="rounded-lg shadow-2xl"
-              data-ai-hint="circular data network"
+              data-ai-hint="futuristic data visualization"
             />
           </div>
         </div>
