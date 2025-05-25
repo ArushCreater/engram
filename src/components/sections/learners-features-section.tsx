@@ -1,18 +1,18 @@
 import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const features = [
   {
     title: 'Never wonder what to learn next—your Brain knows.',
-    description: 'Personalized learning paths tailored to your knowledge gaps and goals.',
+    description: 'Personalized learning paths tailored to your knowledge gaps and goals, ensuring you always focus on what matters most for your growth.',
   },
   {
     title: 'See your knowledge grow—no more lost in PDFs or videos.',
-    description: 'Track your progress visually and understand complex topics with ease.',
+    description: 'Track your progress visually with an intuitive knowledge graph. Understand complex topics with ease as concepts connect and build upon each other.',
   },
   {
     title: 'From passive file dumps to active understanding—every concept becomes a Neuron.',
-    description: 'Transform static information into dynamic, interconnected knowledge units.',
+    description: 'Transform static information into dynamic, interconnected knowledge units. Engage with your learning material like never before.',
   },
 ];
 
@@ -23,21 +23,27 @@ export default function LearnersFeaturesSection() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-card border-border shadow-xl">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-primary">{feature.title}</h3>
-                  {/* <p className="text-muted-foreground">{feature.description}</p> */}
+              <Card 
+                key={index} 
+                className="bg-card border-border shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:scale-[1.02] opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${0.2 + index * 0.2}s` }}
+              >
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-primary">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
             <Image
               src="https://placehold.co/500x500.png" // Placeholder for the circular network graphic
               alt="Knowledge Network Graphic"
               width={500}
               height={500}
-              className="rounded-lg"
+              className="rounded-lg shadow-2xl"
               data-ai-hint="circular data network"
             />
           </div>

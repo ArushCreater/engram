@@ -6,6 +6,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply transition-colors duration-300;
 }
 
 @layer base {
@@ -63,4 +64,9 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* For animations that should apply on load once */
+.animate-on-load {
+  opacity: 0; /* Start hidden */
 }
