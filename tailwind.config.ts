@@ -91,10 +91,6 @@ export default {
           '0%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-8px)' },
           '100%': { transform: 'translateY(0px)' },
-        },
-        'pulse-slow': {
-          '0%, 100%': { opacity: '0.15' }, // Start with the current opacity
-          '50%': { opacity: '0.3' }, // Increase opacity slightly
         }
   		},
   		animation: {
@@ -102,7 +98,6 @@ export default {
   			'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fadeInUp 0.7s ease-out forwards',
         'subtle-float': 'subtleFloat 5s ease-in-out infinite alternate',
-        'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
   		}
   	}
   },

@@ -21,21 +21,24 @@ export default function LearnersFeaturesSection() {
   return (
     <section className="min-h-screen flex flex-col justify-center items-center py-20 md:py-24 bg-background text-foreground">
       <div className="container mx-auto px-4">
+        <h2 
+          className="text-center text-sm font-semibold uppercase text-primary mb-4 opacity-0 animate-fade-in-up" 
+          style={{ animationDelay: '0.1s' }}
+        >
+          Learners & Features
+        </h2>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+          <div className="space-y-6">
             {features.map((feature, index) => (
               <Card 
                 key={index} 
-                className="bg-card border-border shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:scale-[1.02] opacity-0 animate-fade-in-up relative overflow-hidden group/featurecard"
+                className="bg-card border-none shadow-lg opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${0.2 + index * 0.2}s` }}
               >
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-primary">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed text-base">{feature.description}</p>
+                <CardContent className="p-6">
+                  <CardTitle className="text-xl font-semibold text-foreground/90 mb-2">{feature.title}</CardTitle>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
                 </CardContent>
-                <div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-[25deg] group-hover/featurecard:left-[150%] transition-all duration-700 ease-in-out"></div>
               </Card>
             ))}
           </div>
@@ -46,7 +49,7 @@ export default function LearnersFeaturesSection() {
               width={500}
               height={500}
               className="rounded-lg shadow-2xl"
-              data-ai-hint="futuristic data visualization"
+              data-ai-hint="data network circular"
             />
           </div>
         </div>

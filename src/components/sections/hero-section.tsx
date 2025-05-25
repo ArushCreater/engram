@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center text-center text-foreground overflow-hidden py-20 md:py-0">
-      <div className="absolute inset-0 opacity-15">
+      <div className="absolute inset-0 opacity-20">
         <Image
           src="https://placehold.co/1920x1080.png" 
           alt="Abstract network background"
@@ -13,12 +13,11 @@ export default function HeroSection() {
           objectFit="cover"
           priority
           data-ai-hint="abstract globe network"
-          className="animate-pulse-slow" 
         />
       </div>
       <div className="relative container mx-auto px-4">
         <h1 
-          className="text-5xl md:text-7xl font-bold mb-10 tracking-tight opacity-0 animate-fade-in-up bg-gradient-to-r from-primary via-primary to-foreground/60 bg-clip-text text-transparent" 
+          className="text-5xl md:text-7xl font-bold mb-10 tracking-tight opacity-0 animate-fade-in-up text-foreground/90" 
           style={{ animationDelay: '0.2s' }}
         >
           THE FUTURE OF HOW KNOWLEDGE IS TRANSFERRED
@@ -34,4 +33,3 @@ export default function HeroSection() {
     </section>
   );
 }
-
