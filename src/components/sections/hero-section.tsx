@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
@@ -16,7 +17,10 @@ export default function HeroSection() {
         />
       </div>
       <div className="relative container mx-auto px-4">
-        <h1 className="text-5xl md:text-7xl font-bold mb-10 tracking-tight opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <h1 
+          className="text-5xl md:text-7xl font-bold mb-10 tracking-tight opacity-0 animate-fade-in-up bg-gradient-to-r from-primary via-primary to-foreground/60 bg-clip-text text-transparent" 
+          style={{ animationDelay: '0.2s' }}
+        >
           THE FUTURE OF HOW KNOWLEDGE IS TRANSFERRED
         </h1>
         <Button 

@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Asterisk } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,9 @@ export default function SiteFooter() {
     <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 text-center">
         <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
+          <h2 
+            className="text-3xl md:text-5xl font-bold text-foreground mb-8 bg-gradient-to-r from-primary via-primary to-foreground/70 bg-clip-text text-transparent"
+          >
             Ready to Revolutionize Your Learning?
           </h2>
           <div className="flex justify-center items-center space-x-3 mb-10">

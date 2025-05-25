@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -25,7 +26,7 @@ export default function LearnersFeaturesSection() {
             {features.map((feature, index) => (
               <Card 
                 key={index} 
-                className="bg-card border-border shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:scale-[1.02] opacity-0 animate-fade-in-up"
+                className="bg-card border-border shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:scale-[1.02] opacity-0 animate-fade-in-up relative overflow-hidden group/featurecard"
                 style={{ animationDelay: `${0.2 + index * 0.2}s` }}
               >
                 <CardHeader>
@@ -34,6 +35,7 @@ export default function LearnersFeaturesSection() {
                 <CardContent>
                   <p className="text-muted-foreground leading-relaxed text-base">{feature.description}</p>
                 </CardContent>
+                <div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-[25deg] group-hover/featurecard:left-[150%] transition-all duration-700 ease-in-out"></div>
               </Card>
             ))}
           </div>
