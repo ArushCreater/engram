@@ -23,7 +23,7 @@ export default function ShowcaseSection() {
               Live Extraction and Neural Creation
             </p>
             <div 
-              className="relative max-w-4xl mx-auto aspect-[16/10] bg-card border border-border/50 rounded-xl shadow-2xl p-1.5 opacity-0 animate-fade-in-up"
+              className="relative max-w-4xl mx-auto aspect-[16/10] bg-card border border-border/50 rounded-xl shadow-2xl p-1.5 opacity-0 animate-fade-in-up transition-all duration-300 hover:shadow-primary/30"
               style={{ animationDelay: '0.6s' }}
             >
               <Image

@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { useEffect, useState } from 'react';
 
-const initialDocumentPositions = Array.from({ length: 10 }).map(() => ({ // Reduced to 10 for clarity with image
+const initialDocumentPositions = Array.from({ length: 10 }).map(() => ({
   top: `${Math.random() * 70 + 15}%`, 
   left: `${Math.random() * 80 + 10}%`,
   rotation: Math.random() * 360,
@@ -25,30 +25,43 @@ export default function TimeSection() {
   }, []);
 
   useEffect(() => {
-    if (!isOn && clientRendered) {
+    if (!clientRendered) return;
+
+    if (!isOn) {
+      // Reset positions when toggled off, ensuring they are ready to float again
       const wasOn = documentPositions.some(p => (p as any).sucked);
       if (wasOn) {
-        setDocumentPositions(initialDocumentPositions.map(p => ({...p, sucked: false})));
+        // Create new random positions to ensure they spread out again
+        const newInitialPositions = Array.from({ length: 10 }).map(() => ({
+          top: `${Math.random() * 70 + 15}%`,
+          left: `${Math.random() * 80 + 10}%`,
+          rotation: Math.random() * 360,
+          scale: 0.7 + Math.random() * 0.3,
+          opacity: 0.4 + Math.random() * 0.2,
+          animationDelay: `${Math.random() * 0.5}s`, // Faster reset animation
+          animationDuration: `${3 + Math.random() * 1.5}s`,
+          sucked: false,
+        }));
+        setDocumentPositions(newInitialPositions);
       }
+    } else {
+      // When toggled on, mark documents as sucked
+      setDocumentPositions(prevPositions => 
+        prevPositions.map(p => ({...p, sucked: true}))
+      );
     }
   }, [isOn, clientRendered]);
 
 
   const handleToggle = () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    if (newState) {
-      setDocumentPositions(prevPositions => 
-        prevPositions.map(p => ({...p, sucked: true}))
-      );
-    }
+    setIsOn(prevState => !prevState);
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center py-20 md:py-24 bg-secondary text-foreground overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center items-center py-20 md:py-24 bg-background text-foreground overflow-hidden">
       <div className="container mx-auto px-4 text-center">
         <h2 
-          className="text-4xl md:text-6xl font-bold mb-16 opacity-0 animate-fade-in-up text-foreground/90" 
+          className="text-4xl md:text-6xl font-bold text-center mb-16 opacity-0 animate-fade-in-up text-foreground/90"
           style={{ animationDelay: '0.2s' }}
         >
           We&apos;re running out of Time
@@ -94,6 +107,7 @@ export default function TimeSection() {
               checked={isOn} 
               onCheckedChange={handleToggle}
               aria-label={isOn ? "Switch Off Engram" : "Switch On Engram"}
+              className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input scale-125"
             />
             <Label htmlFor="time-toggle" className="text-sm text-muted-foreground select-none">ON</Label>
           </div>

@@ -32,13 +32,14 @@ export default function LearnersFeaturesSection() {
             {features.map((feature, index) => (
               <Card 
                 key={index} 
-                className="bg-card border-none shadow-lg opacity-0 animate-fade-in-up"
+                className="relative group overflow-hidden bg-card border-none shadow-lg opacity-0 animate-fade-in-up transition-all duration-300 hover:shadow-primary/40 hover:scale-[1.02]"
                 style={{ animationDelay: `${0.2 + index * 0.2}s` }}
               >
                 <CardContent className="p-6">
                   <CardTitle className="text-xl font-semibold text-foreground/90 mb-2">{feature.title}</CardTitle>
                   <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
                 </CardContent>
+                <div className="absolute inset-0 -translate-x-full group-hover:animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
               </Card>
             ))}
           </div>

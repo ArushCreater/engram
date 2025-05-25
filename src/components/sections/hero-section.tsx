@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center text-center text-foreground overflow-hidden py-20 md:py-0">
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-30 animate-pulse-slow">
         <Image
           src="https://placehold.co/1920x1080.png" 
           alt="Abstract network background"
