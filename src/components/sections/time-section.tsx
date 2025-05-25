@@ -60,7 +60,7 @@ export default function TimeSection() {
           {clientRendered && documentPositions.map((pos, index) => (
             <FileText 
               key={index} 
-              className={`absolute text-muted-foreground/30 transition-all ${ (pos as any).sucked ? 'duration-[1200ms] ease-in-out' : 'animate-subtle-float'}`} 
+              className={`absolute text-muted-foreground/30 transition-all ${ (pos as any).sucked ? 'duration-[1000ms] ease-in-out' : 'animate-subtle-float'}`} 
               size={32 * pos.scale} 
               style={
                 (pos as any).sucked ? {
@@ -68,7 +68,7 @@ export default function TimeSection() {
                   left: '50%',
                   transform: `translate(-50%, -100%) scale(0.05) rotate(${pos.rotation}deg)`, // Target near logo
                   opacity: 0,
-                  transitionDelay: `${index * 50}ms` // Stagger the animation
+                  transitionDelay: `${index * 40}ms` // Stagger the animation
                 } : { 
                   top: pos.top, 
                   left: pos.left, 
@@ -96,11 +96,12 @@ export default function TimeSection() {
             aria-label={isOn ? "Switch Off Engram" : "Switch On Engram"}
           >
             {isOn ? 
-              <ToggleRight className="h-28 w-28 md:h-32 md:w-32 text-primary transition-all duration-300 ease-in-out group-hover:scale-110 group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-4 group-focus-visible:ring-offset-secondary rounded-full" /> : 
-              <ToggleLeft className="h-28 w-28 md:h-32 md:w-32 text-muted-foreground transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:text-foreground/70 group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-4 group-focus-visible:ring-offset-secondary rounded-full" />}
+              <ToggleRight className="h-32 w-32 md:h-36 md:w-36 text-primary transition-all duration-300 ease-in-out group-hover:scale-110 group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-4 group-focus-visible:ring-offset-secondary rounded-full" /> : 
+              <ToggleLeft className="h-32 w-32 md:h-36 md:w-36 text-muted-foreground transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:text-foreground/70 group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-4 group-focus-visible:ring-offset-secondary rounded-full" />}
           </Button>
         </div>
       </div>
     </section>
   );
 }
+
