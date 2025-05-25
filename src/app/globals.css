@@ -35,7 +35,7 @@ body {
     --destructive: 0 72% 51%; /* #E53E3E */
     --destructive-foreground: 0 0% 98%; /* #FAFAFA */
 
-    --border: 240 4% 12%; /* Darker border */
+    --border: 240 4% 10%; /* Darker, slightly softer border */
     --input: 240 4% 12%; /* Darker input */
     --ring: 217 91% 55%; /* Adjusted blue */
     --radius: 0.5rem;
