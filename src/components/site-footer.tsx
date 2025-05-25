@@ -1,33 +1,22 @@
 import Link from 'next/link';
-import { Github, Linkedin, Twitter } from 'lucide-react';
-
-const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com', icon: Github },
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-  { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
-];
+import { Asterisk } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row justify-between items-center">
-        <p className="text-sm text-muted-foreground mb-4 sm:mb-0">
-          &copy; {new Date().getFullYear()} Web Weaver. All rights reserved.
-        </p>
-        <div className="flex space-x-4">
-          {socialLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-accent transition-colors"
-              aria-label={link.name}
-            >
-              <link.icon className="h-6 w-6" />
-            </Link>
-          ))}
+    <footer className="bg-background border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Discover more Brains</h2>
+        <div className="flex justify-center items-center space-x-2 mb-8">
+            <Asterisk className="h-10 w-10 text-primary" />
+            <span className="text-4xl font-semibold text-foreground">engram</span>
         </div>
+        <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
+          Join the waitlist
+        </Button>
+        <p className="text-sm text-muted-foreground mt-12">
+          &copy; {new Date().getFullYear()} Engram. All rights reserved.
+        </p>
       </div>
     </footer>
   );

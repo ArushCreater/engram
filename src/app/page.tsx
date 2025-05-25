@@ -1,15 +1,21 @@
 import SiteHeader from '@/components/site-header';
-import PortfolioDisplay from '@/components/sections/portfolio-display';
-import AboutMe from '@/components/sections/about-me';
+import HeroSection from '@/components/sections/hero-section';
+import LearnersFeaturesSection from '@/components/sections/learners-features-section';
+import TimeSection from '@/components/sections/time-section';
+import PastFutureSection from '@/components/sections/past-future-section';
+import ShowcaseSection from '@/components/sections/showcase-section';
 import SiteFooter from '@/components/site-footer';
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <SiteHeader />
-      <main className="flex-grow container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <PortfolioDisplay />
-        <AboutMe />
+      <main className="flex-grow">
+        <HeroSection />
+        <LearnersFeaturesSection />
+        <TimeSection />
+        <PastFutureSection />
+        <ShowcaseSection />
       </main>
       <SiteFooter />
     </div>
