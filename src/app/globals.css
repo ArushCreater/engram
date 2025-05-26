@@ -7,53 +7,56 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply transition-colors duration-300;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cGF0aCBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTUiIGQ9Ik0xNC4xIDE0LjFjMS42LTEuNiA0LjEtMS42IDUuNyAwbDUxLjEgNTEuMWMxLjYgMS42IDEuNiA0LjEgMCA1LjctMS42IDEuNi00LjEgMS42LTUuNyAwTDE0LjEgMTkuOGMtMS42LTEuNi0xLjYtNC4xIDAtNS43eiIvPjwvc3ZnPg==');
+  background-repeat: repeat;
+  background-size: 100px;
 }
 
 @layer base {
   :root {
-    --background: 240 5% 2%; /* Almost black */
-    --foreground: 0 0% 98%; /* #FAFAFA */
+    --background: 230 25% 10%; /* Dark navy background as in the image */
+    --foreground: 0 0% 100%; /* Pure white text */
 
-    --card: 240 3% 8%; /* Darker card */
-    --card-foreground: 0 0% 98%; /* #FAFAFA */
+    --card: 220 30% 8% / 0.9; /* Nearly opaque dark card */
+    --card-foreground: 0 0% 100%; /* Pure white text */
 
-    --popover: 240 4% 10%; /* #17191C */
-    --popover-foreground: 0 0% 98%; /* #FAFAFA */
+    --popover: 220 30% 5% / 0.95; /* Very dark popover */
+    --popover-foreground: 0 0% 100%; /* Pure white text */
 
-    --primary: 217 91% 55%; /* Slightly adjusted blue */
-    --primary-foreground: 0 0% 98%; /* #FAFAFA */
+    --primary: 210 100% 50%; /* Bright blue for buttons and highlights */
+    --primary-foreground: 0 0% 100%; /* Pure white text */
 
-    --secondary: 240 4% 6%; /* Darker secondary */
-    --secondary-foreground: 0 0% 80%; /* #CCCCCC */
+    --secondary: 230 25% 15%; /* Slightly lighter than background */
+    --secondary-foreground: 0 0% 100%; /* Pure white text */
 
-    --muted: 240 4% 15%; /* Darker muted */
-    --muted-foreground: 0 0% 60%; /* #999999 */
+    --muted: 230 25% 15%; /* Matching the secondary color */
+    --muted-foreground: 0 0% 70%; /* Light gray for less important text */
 
-    --accent: 217 91% 55%; /* Adjusted blue */
-    --accent-foreground: 0 0% 98%; /* #FAFAFA */
+    --accent: 210 100% 50%; /* Matching primary */
+    --accent-foreground: 0 0% 100%; /* Pure white text */
 
-    --destructive: 0 72% 51%; /* #E53E3E */
-    --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+    --destructive: 0 100% 50%; /* Pure red */
+    --destructive-foreground: 0 0% 100%; /* Pure white text */
 
-    --border: 240 4% 10%; /* Darker, slightly softer border */
-    --input: 240 4% 12%; /* Darker input */
-    --ring: 217 91% 55%; /* Adjusted blue */
-    --radius: 0.5rem;
+    --border: 230 25% 20%; /* Slightly visible dark borders */
+    --input: 230 25% 15%; /* Dark inputs */
+    --ring: 210 100% 50%; /* Bright blue for focus rings */
+    --radius: 0.5rem; /* Reduced radius for sharper edges */
 
-    --chart-1: 217 91% 55%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 210 100% 50%;
+    --chart-2: 210 100% 70%;
+    --chart-3: 210 100% 90%;
+    --chart-4: 0 0% 80%;
+    --chart-5: 0 0% 60%;
     
-    --sidebar-background: 240 4% 10%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4% 14%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 4% 18%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-background: 230 25% 5%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 210 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 25% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 230 25% 20%;
+    --sidebar-ring: 210 100% 50%;
   }
 }
 
@@ -69,4 +72,36 @@ body {
 /* For animations that should apply on load once */
 .animate-on-load {
   opacity: 0; /* Start hidden */
+}
+
+/* Glassmorphism Utilities */
+@layer components {
+  .glass {
+    @apply bg-opacity-20 backdrop-blur-md bg-white/10 border border-white/10 shadow-lg;
+  }
+  
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+  
+  .glass-input {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+  }
+
+  .glass-button {
+    @apply bg-primary/30 hover:bg-primary/40 backdrop-blur-sm border border-white/10 transition-all duration-300;
+  }
+
+  .glass-container {
+    @apply relative overflow-hidden rounded-xl;
+  }
+
+  .glass-container::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none;
+  }
+
+  .glass-highlight {
+    @apply absolute -inset-0.5 bg-gradient-to-r from-primary/30 via-blue-500/10 to-purple-600/20 blur opacity-30 group-hover:opacity-100 transition duration-1000;
+  }
 }

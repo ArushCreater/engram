@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#4D8BF9" stroke-width="1.2" opacity="0.8">
+    <!-- Small network visualization with central node and connections -->
+    <!-- Central node -->
+    <circle cx="150" cy="150" r="6" fill="#4D8BF9" stroke="none"/>
+    
+    <!-- Outer nodes -->
+    <circle cx="100" cy="120" r="4" fill="#4D8BF9" stroke="none"/>
+    <circle cx="80" cy="180" r="4" fill="#4D8BF9" stroke="none"/>
+    <circle cx="140" cy="220" r="4" fill="#4D8BF9" stroke="none"/>
+    <circle cx="200" cy="180" r="4" fill="#4D8BF9" stroke="none"/>
+    <circle cx="210" cy="110" r="4" fill="#4D8BF9" stroke="none"/>
+    <circle cx="150" cy="90" r="4" fill="#4D8BF9" stroke="none"/>
+    
+    <!-- Connections from central node -->
+    <line x1="150" y1="150" x2="100" y2="120" stroke-opacity="0.7"/>
+    <line x1="150" y1="150" x2="80" y2="180" stroke-opacity="0.7"/>
+    <line x1="150" y1="150" x2="140" y2="220" stroke-opacity="0.7"/>
+    <line x1="150" y1="150" x2="200" y2="180" stroke-opacity="0.7"/>
+    <line x1="150" y1="150" x2="210" y2="110" stroke-opacity="0.7"/>
+    <line x1="150" y1="150" x2="150" y2="90" stroke-opacity="0.7"/>
+    
+    <!-- Secondary connections -->
+    <line x1="100" y1="120" x2="150" y2="90" stroke-opacity="0.5"/>
+    <line x1="150" y1="90" x2="210" y2="110" stroke-opacity="0.5"/>
+    <line x1="210" y1="110" x2="200" y2="180" stroke-opacity="0.5"/>
+    <line x1="200" y1="180" x2="140" y2="220" stroke-opacity="0.5"/>
+    <line x1="140" y1="220" x2="80" y2="180" stroke-opacity="0.5"/>
+    <line x1="80" y1="180" x2="100" y2="120" stroke-opacity="0.5"/>
+    
+    <!-- Tertiary nodes and connections -->
+    <circle cx="120" cy="100" r="2" fill="#4D8BF9" stroke="none"/>
+    <circle cx="180" cy="95" r="2" fill="#4D8BF9" stroke="none"/>
+    <circle cx="220" cy="140" r="2" fill="#4D8BF9" stroke="none"/>
+    <circle cx="170" cy="200" r="2" fill="#4D8BF9" stroke="none"/>
+    <circle cx="110" cy="210" r="2" fill="#4D8BF9" stroke="none"/>
+    <circle cx="70" cy="140" r="2" fill="#4D8BF9" stroke="none"/>
+    
+    <line x1="100" y1="120" x2="120" y2="100" stroke-opacity="0.3"/>
+    <line x1="120" y1="100" x2="150" y2="90" stroke-opacity="0.3"/>
+    <line x1="150" y1="90" x2="180" y2="95" stroke-opacity="0.3"/>
+    <line x1="180" y1="95" x2="210" y2="110" stroke-opacity="0.3"/>
+    <line x1="210" y1="110" x2="220" y2="140" stroke-opacity="0.3"/>
+    <line x1="220" y1="140" x2="200" y2="180" stroke-opacity="0.3"/>
+    <line x1="200" y1="180" x2="170" y2="200" stroke-opacity="0.3"/>
+    <line x1="170" y1="200" x2="140" y2="220" stroke-opacity="0.3"/>
+    <line x1="140" y1="220" x2="110" y2="210" stroke-opacity="0.3"/>
+    <line x1="110" y1="210" x2="80" y2="180" stroke-opacity="0.3"/>
+    <line x1="80" y1="180" x2="70" y2="140" stroke-opacity="0.3"/>
+    <line x1="70" y1="140" x2="100" y2="120" stroke-opacity="0.3"/>
+    
+    <!-- Crossings for more network-like feel -->
+    <line x1="120" y1="100" x2="180" y2="95" stroke-opacity="0.2"/>
+    <line x1="220" y1="140" x2="170" y2="200" stroke-opacity="0.2"/>
+    <line x1="110" y1="210" x2="70" y2="140" stroke-opacity="0.2"/>
+  </g>
+</svg>
