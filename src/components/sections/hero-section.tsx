@@ -46,8 +46,8 @@ export default function HeroSection() {
     // Set the radius to be large but with safe margins
     const radius = Math.min(canvas.width, canvas.height) * 0.8; // Slightly reduced to prevent clipping
     
-    // Create points
-    const points: { x: number; y: number; z: number; radius: number }[] = [];
+    // Create points with animation parameters
+    const points: { x: number; y: number; z: number; radius: number; originalX: number; originalY: number; originalZ: number; phase: number; amplitude: number; speed: number }[] = [];
     
     // Create a sphere of points with more density
     for (let i = 0; i < 180; i++) { // Slightly more points for better coverage
@@ -59,11 +59,20 @@ export default function HeroSection() {
       const y = radius * Math.sin(phi) * Math.sin(theta);
       const z = radius * Math.cos(phi);
       
+      // Add animation parameters for each point
+      const phase = Math.random() * Math.PI * 2; // Random starting phase
+      const amplitude = Math.random() * 0.1 * radius; // Random movement amplitude (10% of radius)
+      const speed = 0.5 + Math.random() * 1.5; // Random movement speed
+      
       points.push({
-        x,
-        y,
-        z,
+        x, y, z,
+        originalX: x,
+        originalY: y,
+        originalZ: z,
         radius: Math.random() * 1.2 + 0.8, // Slightly larger nodes
+        phase,
+        amplitude,
+        speed,
       });
     }
     
@@ -151,6 +160,22 @@ export default function HeroSection() {
       // Add subtle Z rotation for more dynamism
       rotationZ = Math.sin(time * 0.03) * 0.05;
       
+      // Animate point positions
+      points.forEach((point, i) => {
+        // Calculate dynamic movement based on time and point's parameters
+        const pointTime = time * point.speed;
+        
+        // Create organic movement in 3D space
+        const xOffset = Math.sin(pointTime + point.phase) * point.amplitude;
+        const yOffset = Math.cos(pointTime + point.phase * 0.7) * point.amplitude;
+        const zOffset = Math.sin(pointTime * 0.8 + point.phase * 1.3) * point.amplitude;
+        
+        // Update point position with dynamic movement
+        point.x = point.originalX + xOffset;
+        point.y = point.originalY + yOffset;
+        point.z = point.originalZ + zOffset;
+      });
+      
       // Transform points with rotation
       const transformedPoints = points.map(point => {
         // Apply 3D rotation (Y, then X, then Z)
@@ -164,7 +189,7 @@ export default function HeroSection() {
         let y2 = y * Math.cos(rotationX) + z1 * Math.sin(rotationX);
         let z2 = -y * Math.sin(rotationX) + z1 * Math.cos(rotationX);
         
-        // Rotate around Z axis (subtle)
+        // Rotate around Z axis
         let x3 = x1 * Math.cos(rotationZ) - y2 * Math.sin(rotationZ);
         let y3 = x1 * Math.sin(rotationZ) + y2 * Math.cos(rotationZ);
         
@@ -191,7 +216,7 @@ export default function HeroSection() {
       // Draw connections with varying opacity and width
       ctx.lineWidth = 0.5; // Thinner lines for cleaner look
       
-      // Draw special pattern connections
+      // Draw special pattern connections with straight lines
       const now = Date.now();
       connectionPatterns.forEach((pattern, patternIndex) => {
         for (let i = 0; i < pattern.length - 1; i++) {
@@ -202,7 +227,10 @@ export default function HeroSection() {
             const pointB = transformedPoints[idx2];
             
             if (pointA && pointB && pointA.z < radius && pointB.z < radius) {
+              // Pulsing opacity effect
               const opacity = (Math.sin(now * 0.001 + patternIndex) * 0.5 + 0.5) * 0.3 + 0.1;
+              
+              // Draw straight connection
               ctx.beginPath();
               ctx.strokeStyle = `rgba(124, 179, 255, ${opacity})`;
               ctx.moveTo(pointA.x, pointA.y);
@@ -227,6 +255,7 @@ export default function HeroSection() {
           const opacityB = Math.max(0, (radius - pointB.z) / (radius * 2));
           const opacity = (opacityA + opacityB) / 2;
           
+          // Draw straight connection
           ctx.beginPath();
           ctx.strokeStyle = `rgba(77, 139, 249, ${opacity * 0.2})`;
           ctx.moveTo(pointA.x, pointA.y);
