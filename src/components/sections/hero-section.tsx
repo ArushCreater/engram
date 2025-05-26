@@ -43,16 +43,17 @@ export default function HeroSection() {
     // Create points for geodesic dome
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = Math.min(canvas.width, canvas.height) * 0.7;
+    // Set the radius to be large but with safe margins
+    const radius = Math.min(canvas.width, canvas.height) * 0.8; // Slightly reduced to prevent clipping
     
     // Create points
     const points: { x: number; y: number; z: number; radius: number }[] = [];
     
     // Create a sphere of points with more density
-    for (let i = 0; i < 150; i++) { // Increased from 80 to 150 points
+    for (let i = 0; i < 180; i++) { // Slightly more points for better coverage
       // Create points in a spherical arrangement
       const theta = Math.random() * Math.PI * 2; // Longitude
-      const phi = Math.random() * Math.PI; // Latitude
+      const phi = Math.acos(2 * Math.random() - 1); // Better distribution than random phi
       
       const x = radius * Math.sin(phi) * Math.cos(theta);
       const y = radius * Math.sin(phi) * Math.sin(theta);
@@ -62,14 +63,25 @@ export default function HeroSection() {
         x,
         y,
         z,
-        radius: Math.random() * 1.5 + 0.5, // Random node size (smaller for better performance)
+        radius: Math.random() * 1.2 + 0.8, // Slightly larger nodes
       });
     }
     
-    // Create connections between nearby points
+    // Create connections between nearby points with more complexity
     let connections: { a: number; b: number; distance: number }[] = [];
-    const maxConnections = 4; // Increased from 2 to 4 for more connections
-    const maxDistance = radius * 0.6; // Increased from 0.5 to 0.6 to connect more points
+    const maxConnections = 5; // Slightly more connections
+    const maxDistance = radius * 0.7; // Increased connection distance
+    const minDistance = radius * 0.3; // Prevent connections that are too close
+    
+    // Create some special connection patterns
+    const connectionPatterns: number[][] = [];
+    for (let i = 0; i < 6; i++) {
+      const pattern = [];
+      for (let j = 0; j < 8; j++) {
+        pattern.push(Math.floor(Math.random() * points.length));
+      }
+      connectionPatterns.push(pattern);
+    }
     
     for (let i = 0; i < points.length; i++) {
       const pointConnections = [];
@@ -109,44 +121,100 @@ export default function HeroSection() {
       return duplicate === index;
     });
     
-    // Animation loop
-    let rotationX = 0;
+    // Animation loop with smoother rotation
+    let rotationX = 0.2; // Start with a more front-facing angle
     let rotationY = 0;
+    let rotationZ = 0;
+    let targetRotationX = 0.2;
+    let targetRotationY = 0;
     let animationFrameId: number;
+    let lastTime = 0;
+    
+    // Add some organic movement
+    let time = 0;
+    const rotationSpeed = 0.2; // Slower rotation
     
     const animate = () => {
       if (!ctx || !canvas) return;
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Rotate slowly
-      rotationX += 0.0008; // Slightly slower rotation for larger dome
-      rotationY += 0.0004; // Slightly slower rotation for larger dome
+      // Faster, more dynamic rotation
+      time += 0.01;
+      targetRotationY += 0.001; // Increased rotation speed
+      // Add subtle vertical movement
+      targetRotationX = 0.2 + Math.sin(time * 0.05) * 0.1;
+      
+      // Snappier interpolation
+      rotationX += (targetRotationX - rotationX) * 0.02;
+      rotationY += (targetRotationY - rotationY) * 0.02;
+      // Add subtle Z rotation for more dynamism
+      rotationZ = Math.sin(time * 0.03) * 0.05;
       
       // Transform points with rotation
       const transformedPoints = points.map(point => {
+        // Apply 3D rotation (Y, then X, then Z)
+        let x = point.x, y = point.y, z = point.z;
+        
         // Rotate around Y axis
-        const x1 = point.x * Math.cos(rotationY) - point.z * Math.sin(rotationY);
-        const z1 = point.x * Math.sin(rotationY) + point.z * Math.cos(rotationY);
+        let x1 = x * Math.cos(rotationY) - z * Math.sin(rotationY);
+        let z1 = x * Math.sin(rotationY) + z * Math.cos(rotationY);
         
         // Rotate around X axis
-        const y2 = point.y * Math.cos(rotationX) + z1 * Math.sin(rotationX);
-        const z2 = -point.y * Math.sin(rotationX) + z1 * Math.cos(rotationX);
+        let y2 = y * Math.cos(rotationX) + z1 * Math.sin(rotationX);
+        let z2 = -y * Math.sin(rotationX) + z1 * Math.cos(rotationX);
         
-        // Project to 2D with a simple perspective division
-        const scale = 800 / (800 - z2); // Perspective division
+        // Rotate around Z axis (subtle)
+        let x3 = x1 * Math.cos(rotationZ) - y2 * Math.sin(rotationZ);
+        let y3 = x1 * Math.sin(rotationZ) + y2 * Math.cos(rotationZ);
+        
+        // Project to 2D with perspective
+        const fov = 4000; // Increased field of view to prevent clipping
+        // Add more distance to prevent z-clipping
+        const distance = 3000;
+        // More gradual scaling to prevent extreme perspective
+        const scale = fov / (fov + distance - z2) * 1.2;
+        
+        // Remove pulsing for now to prevent movement
+        const pulse = 1;
         
         return {
-          x: centerX + x1 * scale,
-          y: centerY + y2 * scale,
+          // Apply non-linear scaling to keep points within bounds
+          x: centerX + x3 * scale * 0.9, // Slightly reduced scale
+          y: centerY + y3 * scale * 0.9,
           z: z2,
-          radius: point.radius * scale,
+          // Scale radius more aggressively to maintain point visibility
+          radius: point.radius * scale * 1.5 // Increased point size
         };
       });
       
-      // Draw connections
+      // Draw connections with varying opacity and width
+      ctx.lineWidth = 0.5; // Thinner lines for cleaner look
+      
+      // Draw special pattern connections
+      const now = Date.now();
+      connectionPatterns.forEach((pattern, patternIndex) => {
+        for (let i = 0; i < pattern.length - 1; i++) {
+          const idx1 = pattern[i];
+          const idx2 = pattern[(i + 1) % pattern.length];
+          if (idx1 >= 0 && idx2 >= 0 && idx1 < transformedPoints.length && idx2 < transformedPoints.length) {
+            const pointA = transformedPoints[idx1];
+            const pointB = transformedPoints[idx2];
+            
+            if (pointA && pointB && pointA.z < radius && pointB.z < radius) {
+              const opacity = (Math.sin(now * 0.001 + patternIndex) * 0.5 + 0.5) * 0.3 + 0.1;
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(124, 179, 255, ${opacity})`;
+              ctx.moveTo(pointA.x, pointA.y);
+              ctx.lineTo(pointB.x, pointB.y);
+              ctx.stroke();
+            }
+          }
+        }
+      });
+      
+      // Regular connections
       ctx.strokeStyle = 'rgba(77, 139, 249, 0.15)'; // Light blue connections
-      ctx.lineWidth = 0.5;
       
       connections.forEach(conn => {
         const pointA = transformedPoints[conn.a];
@@ -174,21 +242,50 @@ export default function HeroSection() {
           // Calculate opacity based on z position
           const opacity = Math.max(0, (radius - point.z) / (radius * 2));
           
-          // Create gradient for each point
+          // Create glowing point effect with vibrant colors
           const gradient = ctx.createRadialGradient(
             point.x, 
             point.y, 
             0, 
             point.x, 
             point.y, 
-            point.radius * 2
+            point.radius * 3
           );
-          gradient.addColorStop(0, `rgba(77, 139, 249, ${opacity})`);
-          gradient.addColorStop(1, `rgba(77, 139, 249, ${opacity * 0.2})`);
           
+          // More vibrant color variation based on position and time
+          const hue1 = (point.x / canvas.width * 30 + time * 20) % 360;
+          const hue2 = (point.y / canvas.height * 30 + time * 10) % 360;
+          const hue = (hue1 + hue2) / 2;
+          const saturation = 80 + Math.sin(time * 0.5) * 15;
+          const lightness = 70 + Math.cos(time * 0.3) * 10;
+          
+          const color1 = `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity * 0.9})`;
+          const color2 = `hsla(${(hue + 60) % 360}, ${saturation}%, ${lightness}%, ${opacity * 0.2})`;
+          
+          gradient.addColorStop(0, color1);
+          gradient.addColorStop(1, color2);
+          
+          // Draw glow
           ctx.beginPath();
           ctx.fillStyle = gradient;
-          ctx.arc(point.x, point.y, point.radius * 1.5, 0, Math.PI * 2);
+          ctx.arc(point.x, point.y, point.radius * 2, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Draw core point with vibrant color
+          const coreGradient = ctx.createRadialGradient(
+            point.x, 
+            point.y, 
+            0, 
+            point.x, 
+            point.y, 
+            point.radius * 1.2
+          );
+          coreGradient.addColorStop(0, `hsla(${hue}, ${saturation}%, 95%, 0.95)`);
+          coreGradient.addColorStop(1, `hsla(${hue}, ${saturation}%, 70%, 0.9)`);
+          
+          ctx.beginPath();
+          ctx.fillStyle = coreGradient;
+          ctx.arc(point.x, point.y, point.radius * 0.8, 0, Math.PI * 2);
           ctx.fill();
         }
       });

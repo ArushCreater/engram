@@ -73,53 +73,49 @@ export default function LearnersFeatures() {
     };
   }, []);
   
-  // Function to handle dot click and scroll to feature
+  // Function to handle dot click and switch feature with animation
   const scrollToFeature = (index: number) => {
-    // Make sure we can set active index for all available dots
-    if (index >= 0 && index < features.length) {
-      setActiveIndex(index);
+    if (index < 0 || index >= features.length || index === activeIndex) return;
+    
+    // Start fade out
+    const currentCard = document.querySelector(`.feature-card[data-active="true"]`);
+    if (currentCard) {
+      currentCard.setAttribute('data-active', 'false');
     }
+    
+    // After fade out, update state and fade in new card
+    setTimeout(() => {
+      setActiveIndex(index);
+      
+      // Force reflow
+      requestAnimationFrame(() => {
+        const newCard = document.querySelector(`.feature-card[data-index="${index}"]`);
+        if (newCard) {
+          newCard.setAttribute('data-active', 'true');
+        }
+      });
+    }, 300); // Match this with CSS transition duration
   };
   
-  // Set up scroll-based navigation for the showcase section
+  // Set initial active card
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const firstCard = document.querySelector('.feature-card');
+      if (firstCard) {
+        firstCard.setAttribute('data-active', 'true');
+      }
+    }
+  }, []);
+
+  // Set up section visibility
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
-    // Set the initial active index
-    setActiveIndex(0);
-    
-    // Function to handle scroll and update active dot
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const sectionTop = sectionRef.current?.offsetTop || 0;
-      const sectionHeight = sectionRef.current?.offsetHeight || 0;
-      
-      // If we're inside the section
-      if (scrollY >= sectionTop - 300 && scrollY <= sectionTop + sectionHeight) {
-        // Calculate which feature should be active based on scroll position
-        const progress = (scrollY - (sectionTop - 300)) / (sectionHeight - 200);
-        const newIndex = Math.min(
-          Math.floor(progress * features.length),
-          features.length - 1
-        );
-        
-        if (newIndex !== activeIndex && newIndex >= 0 && newIndex < features.length) {
-          setActiveIndex(newIndex);
-        }
-      }
-    };
-    
-    // Manually add animation class when section becomes visible
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Add animation class to the section
             sectionRef.current?.classList.add('section-visible');
-            
-            // Start listening to scroll events when section is visible
-            window.addEventListener('scroll', handleScroll, { passive: true });
-            
             observer.unobserve(entry.target);
           }
         });
@@ -131,16 +127,12 @@ export default function LearnersFeatures() {
       observer.observe(sectionRef.current);
     }
     
-    // Initial call to set the correct active feature
-    handleScroll();
-    
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, [activeIndex, features.length]);
+  }, []);
 
   return (
     <section 
@@ -169,28 +161,40 @@ export default function LearnersFeatures() {
             <button 
               key={index} 
               onClick={() => scrollToFeature(index)}
-              className={`dot w-4 h-4 rounded-full transition-all duration-500 ${activeIndex === index ? 'active bg-blue-500 scale-125' : 'bg-white/30'} hover:bg-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-[#0a0f19]`}
+              className={`dot w-4 h-4 rounded-full transition-all duration-300 ${activeIndex === index ? 'active bg-blue-500 scale-125' : 'bg-white/30 hover:bg-blue-400/50'} focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-[#0a0f19]`}
               aria-label={`View feature ${index + 1}`}
+              aria-current={activeIndex === index ? 'step' : undefined}
               tabIndex={0}
             />
           ))}
         </div>
         
-        {/* Feature cards with proper display based on dot selection */}
+        {/* Feature cards with fade animation */}
         <div className="relative min-h-[400px] md:min-h-[500px] py-8">
           {features.map((feature, index) => (
             <div 
               key={index}
-              className={`feature-card absolute top-0 left-0 w-full transform transition-all duration-700 ease-in-out ${activeIndex === index ? 'opacity-100 translate-y-0 z-10' : 'opacity-0 translate-y-8 pointer-events-none'}`}
-              style={{ 
-                transitionDelay: activeIndex === index ? '150ms' : '0ms'
+              data-index={index}
+              data-active={activeIndex === index ? 'true' : 'false'}
+              className="feature-card absolute inset-0 transition-opacity duration-300 ease-out opacity-0"
+              style={{
+                visibility: activeIndex === index ? 'visible' : 'hidden',
+                opacity: activeIndex === index ? 1 : 0,
+                transition: 'opacity 300ms ease-out, transform 300ms ease-out',
+                transform: activeIndex === index ? 'translateY(0)' : 'translateY(10px)'
               }}
             >
               <div className="max-w-4xl mx-auto">
                 <div className="flex flex-col md:flex-row gap-10 items-center">
                   {/* Feature image */}
                   <div className="w-full md:w-1/2">
-                    <div className="bg-[#0c0e14]/80 p-8 rounded-xl overflow-hidden shadow-2xl border border-[#2A2A2A] relative group">
+                    <div className="bg-[#0c0e14] p-8 rounded-2xl overflow-hidden relative group border border-white/10 hover:border-white/20 transition-colors duration-300">
+                      {/* Subtle highlight on hover */}
+                      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+                           style={{
+                             background: `radial-gradient(ellipse at center, ${feature.color.replace('from-', '').replace('to-', '')} 0%, transparent 70%)`,
+                             filter: 'blur(20px)'
+                           }} />
                       <div className={`absolute inset-0 bg-gradient-to-b ${feature.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}></div>
                       <div className="relative z-10">
                         <img 
