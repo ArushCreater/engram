@@ -6,7 +6,7 @@ import { AnimatedSwitch } from '@/components/ui/animated-switch';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-// File examples to showcase with Notion-like document types
+ // File examples to showcase with Notion-like document types
 const files = [
   { 
     name: 'Neural Networks.pdf',
