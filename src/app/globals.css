@@ -1,3 +1,6 @@
+/* Import Inter font for Notion-like typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 /* CSS Reset and Tailwind directives */
 /* stylelint-disable-next-line */
 @tailwind base;
@@ -7,60 +10,73 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply transition-colors duration-300;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cGF0aCBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTUiIGQ9Ik0xNC4xIDE0LjFjMS42LTEuNiA0LjEtMS42IDUuNyAwbDUxLjEgNTEuMWMxLjYgMS42IDEuNiA0LjEgMCA1LjctMS42IDEuNi00LjEgMS42LTUuNyAwTDE0LjEgMTkuOGMtMS42LTEuNi0xLjYtNC4xIDAtNS43eiIvPjwvc3ZnPg==');
-  background-repeat: repeat;
-  background-size: 100px;
+  background-color: hsl(var(--background));
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0f0f0' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 @layer base {
   :root {
-    --background: 230 25% 10%; /* Dark navy background as in the image */
-    --foreground: 0 0% 100%; /* Pure white text */
+    /* Dark theme colors */
+    --background: 0 0% 4%; /* Very dark background */
+    --foreground: 0 0% 98%; /* Light text */
 
-    --card: 220 30% 8% / 0.9; /* Nearly opaque dark card */
-    --card-foreground: 0 0% 100%; /* Pure white text */
+    --card: 0 0% 7%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 98%; /* Light text */
 
-    --popover: 220 30% 5% / 0.95; /* Very dark popover */
-    --popover-foreground: 0 0% 100%; /* Pure white text */
+    --popover: 0 0% 7%; /* Slightly lighter than background */
+    --popover-foreground: 0 0% 98%; /* Light text */
 
-    --primary: 210 100% 50%; /* Bright blue for buttons and highlights */
-    --primary-foreground: 0 0% 100%; /* Pure white text */
+    --primary: 0 0% 98%; /* Light color for primary actions */
+    --primary-foreground: 0 0% 9%; /* Dark text on primary */
 
-    --secondary: 230 25% 15%; /* Slightly lighter than background */
-    --secondary-foreground: 0 0% 100%; /* Pure white text */
+    --secondary: 0 0% 15%; /* Dark gray for secondary backgrounds */
+    --secondary-foreground: 0 0% 98%; /* Light text */
 
-    --muted: 230 25% 15%; /* Matching the secondary color */
+    --muted: 0 0% 15%; /* Dark gray for muted areas */
     --muted-foreground: 0 0% 70%; /* Light gray for less important text */
 
-    --accent: 210 100% 50%; /* Matching primary */
-    --accent-foreground: 0 0% 100%; /* Pure white text */
+    --accent: 0 0% 20%; /* Slightly lighter gray for accents */
+    --accent-foreground: 0 0% 98%; /* Light text */
 
-    --destructive: 0 100% 50%; /* Pure red */
-    --destructive-foreground: 0 0% 100%; /* Pure white text */
+    --destructive: 0 84% 60%; /* Soft red */
+    --destructive-foreground: 0 0% 98%; /* White text on destructive */
 
-    --border: 230 25% 20%; /* Slightly visible dark borders */
-    --input: 230 25% 15%; /* Dark inputs */
-    --ring: 210 100% 50%; /* Bright blue for focus rings */
-    --radius: 0.5rem; /* Reduced radius for sharper edges */
+    --border: 0 0% 20%; /* Dark gray border */
+    --input: 0 0% 15%; /* Dark gray input backgrounds */
+    --ring: 0 0% 40%; /* Medium gray for focus rings */
+    --radius: 0.3rem; /* Subtle rounding for modern look */
 
-    --chart-1: 210 100% 50%;
-    --chart-2: 210 100% 70%;
-    --chart-3: 210 100% 90%;
-    --chart-4: 0 0% 80%;
-    --chart-5: 0 0% 60%;
+    /* Chart colors */
+    --chart-1: 207 84% 60%; /* Blue */
+    --chart-2: 329 84% 60%; /* Pink */
+    --chart-3: 49 84% 60%; /* Yellow */
+    --chart-4: 173 84% 60%; /* Teal */
+    --chart-5: 269 84% 60%; /* Purple */
     
-    --sidebar-background: 230 25% 5%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 210 100% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 230 25% 10%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 230 25% 20%;
-    --sidebar-ring: 210 100% 50%;
+    /* Sidebar styles */
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 0 0% 40%;
+    
+    /* Notion-specific colors */
+    --notion-red: 0 100% 60%;
+    --notion-yellow: 38 100% 60%;
+    --notion-blue: 207 100% 60%;
+    --notion-purple: 269 100% 60%;
+    --notion-pink: 329 100% 60%;
+    --notion-teal: 173 100% 60%;
+    --notion-orange: 24 100% 60%;
+    --notion-brown: 18 45% 40%;
+    --notion-gray: 0 0% 45%;
   }
 }
 
@@ -71,76 +87,208 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Typography enhancements */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+  
+  /* Notion-inspired glass effect (lighter and more subtle) */
   .glass {
     /* stylelint-disable-next-line */
-    @apply bg-black/20 backdrop-blur-md border border-white/10 rounded-lg shadow-xl;
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg shadow-sm;
+  }
+  
+  /* Dark mode glass */
+  .dark .glass {
+    @apply bg-black/10 backdrop-blur-md border border-white/10 shadow-xl;
   }
 }
 
 /* For animations that should apply on load once */
 .animate-on-load {
   opacity: 0; /* Start hidden */
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-/* Glassmorphism Utilities */
-/* Component Styles */
+/* Notion-specific utility classes */
+.notion-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.notion-section {
+  padding: 5rem 0;
+}
+
+.notion-heading {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.notion-paragraph {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: hsla(var(--foreground) / 0.8);
+}
+
+.notion-callout {
+  padding: 1rem;
+  border-radius: var(--radius);
+  border-left: 4px solid hsla(var(--notion-blue));
+  background-color: hsla(var(--secondary));
+}
+
+/* Refined shadows for depth */
+.notion-shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.notion-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.notion-shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.notion-shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.04), 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Notion-Inspired Component Styles */
+
+/* Modern Glass Effect */
 .glass {
-  opacity: 0.9;
-  backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(230, 230, 230, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Card with Notion aesthetics */
 .glass-card {
-  background-color: hsla(var(--card), 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: hsla(var(--card));
+  border: 1px solid hsla(var(--border));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  border-radius: var(--radius);
 }
 
+.glass-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Input fields with Notion look */
 .glass-input {
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: hsla(var(--background));
+  border: 1px solid hsla(var(--border));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.glass-input:focus {
+  border-color: hsla(var(--ring));
+  box-shadow: 0 0 0 1px hsla(var(--ring));
+  outline: none;
+}
+
+/* Notion-style buttons */
 .glass-button {
-  background-color: hsla(var(--primary), 0.3);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s;
+  background-color: hsla(var(--primary));
+  color: hsla(var(--primary-foreground));
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .glass-button:hover {
-  background-color: hsla(var(--primary), 0.4);
+  background-color: hsla(var(--primary) / 0.9);
+  transform: translateY(-1px);
 }
 
+.glass-button:active {
+  transform: translateY(0);
+}
+
+/* Secondary button style */
+.glass-button-secondary {
+  background-color: hsla(var(--secondary));
+  color: hsla(var(--secondary-foreground));
+  border: 1px solid hsla(var(--border));
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.glass-button-secondary:hover {
+  background-color: hsla(var(--secondary) / 0.9);
+  transform: translateY(-1px);
+}
+
+/* Container styling */
 .glass-container {
   position: relative;
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid hsla(var(--border));
+  background-color: hsla(var(--background));
 }
 
 .glass-container::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), transparent);
   pointer-events: none;
 }
 
+/* Subtle highlight effects */
 .glass-highlight {
   position: absolute;
   inset: -0.125rem;
-  background: linear-gradient(to right, hsla(var(--primary), 0.3), rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.2));
-  filter: blur(4px);
-  opacity: 0.3;
-  transition: opacity 1s;
+  background: linear-gradient(to right, hsla(var(--notion-blue), 0.1), hsla(var(--notion-purple), 0.05));
+  filter: blur(8px);
+  opacity: 0.2;
+  transition: opacity 0.5s ease;
 }
 
 .group:hover .glass-highlight {
-  opacity: 1;
+  opacity: 0.3;
+}
+
+/* Notion-style faint hover highlight */
+.notion-hover-highlight {
+  transition: background-color 0.2s ease;
+}
+
+.notion-hover-highlight:hover {
+  background-color: hsla(var(--secondary));
 }
 
 /* Animation Styles */
@@ -159,10 +307,11 @@ body {
   transform: translateY(0);
 }
 
+/* Refined animations for Notion-like feel */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -170,23 +319,36 @@ body {
   }
 }
 
-/* Hero animations */
+/* More subtle, elegant hero animations */
 .animate-in-slide-up {
   opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.8s forwards;
+  transform: translateY(10px);
+  animation: fadeInUp 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
 .animate-in-fade {
   opacity: 0;
-  animation: fadeIn 1s forwards;
+  animation: fadeIn 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
-.delay-300 {
-  animation-delay: 300ms;
-}
+/* Refined delay classes */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
 
 @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Notion-style subtle entrance animations */
+.notion-fade-in {
+  animation: notionFadeIn 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes notionFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }

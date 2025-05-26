@@ -7,47 +7,93 @@ import { Button } from '@/components/ui/button';
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-[#0a0d15] border-t border-[#1A1A2A]"> 
-      <div className="container mx-auto px-4 py-16 text-center">
-        <div className="max-w-md mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-            Connect your knowledge
-          </h2>
-          
-          <p className="text-white/70 mb-10 leading-relaxed">
-            Join our network of connected brains and experience a new dimension of learning and knowledge transfer.
-          </p>
-        </div>
-        
-        <div className="flex justify-center items-center mb-10">
-          <div className="flex flex-col items-center group">
-            <div className="w-20 h-20 relative mb-3 transform group-hover:scale-110 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full filter blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-700"></div>
+    <footer className="bg-background border-t border-border"> 
+      <div className="notion-container py-16 md:py-24">
+        {/* Main footer content */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+          {/* Brand column */}
+          <div className="md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
               <Image
                 src="/image 94.png"
-                alt="Logo"
-                width={80}
-                height={80}
-                className="opacity-100 group-hover:opacity-100 transition-all duration-500"
+                alt="engram Logo"
+                width={24}
+                height={24}
+                className="opacity-80"
                 priority
               />
+              <span className="font-medium text-foreground">engram</span>
             </div>
+            <p className="text-sm text-foreground/60 mt-4 max-w-xs">
+              Organize, enhance, and share your knowledge in a beautiful workspace.
+            </p>
+          </div>
+          
+          {/* Navigation columns */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-foreground mb-4">Product</h3>
+            <ul className="space-y-3">
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Features</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Templates</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Integrations</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Enterprise</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Security</Link></li>
+            </ul>
+          </div>
+          
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-foreground mb-4">Resources</h3>
+            <ul className="space-y-3">
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Documentation</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Guides</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Help center</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">API</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Community</Link></li>
+            </ul>
+          </div>
+          
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold text-foreground mb-4">Company</h3>
+            <ul className="space-y-3">
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">About us</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Careers</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Blog</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Pricing</Link></li>
+              <li><Link href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">Contact</Link></li>
+            </ul>
           </div>
         </div>
         
-        <div className="mb-16">
-          <Button 
-            variant="glass"
-            className="px-8 py-4 text-white font-medium rounded-md bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/30 backdrop-blur-md shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-300"
-          >
-            Join the Waitlist
-          </Button>
+        {/* Newsletter signup */}
+        <div className="border-t border-border pt-12 pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div>
+            <h3 className="text-sm font-medium text-foreground mb-2">Stay updated</h3>
+            <p className="text-sm text-foreground/60">Get notified about new features and updates.</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              className="glass-input text-sm md:w-72 px-4 py-2"
+            />
+            <Button 
+              className="bg-foreground text-background hover:bg-foreground/90 text-sm font-medium"
+            >
+              Subscribe
+            </Button>
+          </div>
         </div>
         
-        <div className="pt-10 border-t border-[#1A1A2A]">
-          <p className="text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} Neural Network Technologies. All rights reserved.
+        {/* Legal section */}
+        <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-foreground/50">
+            &copy; {new Date().getFullYear()} engram by Neural Network Technologies. All rights reserved.
           </p>
+          <div className="flex items-center gap-6">
+            <Link href="#" className="text-xs text-foreground/50 hover:text-foreground/80 transition-colors">Privacy</Link>
+            <Link href="#" className="text-xs text-foreground/50 hover:text-foreground/80 transition-colors">Terms</Link>
+            <Link href="#" className="text-xs text-foreground/50 hover:text-foreground/80 transition-colors">Cookies</Link>
+          </div>
         </div>
       </div>
     </footer>
